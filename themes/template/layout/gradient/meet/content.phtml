@@ -1,0 +1,73 @@
+    <?php		
+    $e_age = explode( ',', $sm['user']['s_age'] );		
+    $age = $e_age[2]; 
+    $age2 = $e_age[1]; 
+    $age1 = $e_age[0];	
+    ?>
+    <script>
+        url = "meet";
+    </script>
+    <div class="search-people-container" style="display:none">
+        <div class="container relative search-people">
+            <div class="search-text"> </div>
+            <div class="search-form" style="display:none;">
+                <h2 class="show-me">
+                    <?= $sm['lang'][109]['text']; ?>
+                </h2>
+                <input type="hidden" value="0" id="meet_filter_limit" data-filter="meet_filter_limit" />
+                <select class="select1" data-filter="meet_filter_gender" id="meet_filter_gender">
+                    <option value="2" <?php if($sm[ 'user'][ 's_gender']==2 ) { echo 'selected'; } ?>>
+                        <?= $sm['lang'][110]['text']; ?>
+                    </option>
+                    <option value="1" <?php if($sm[ 'user'][ 's_gender']==1 ) { echo 'selected'; } ?>>
+                        <?= $sm['lang'][111]['text']; ?>
+                    </option>
+                    <option value="3" <?php if($sm[ 'user'][ 's_gender']==3 ) { echo 'selected'; } ?>>
+                        <?= $sm['lang'][112]['text']; ?>
+                    </option>
+                </select>
+                <input class="select2" style="width: 115px;" value="<?= $age1;?>" type="number" min="18" max="99" data-filter="meet_filter_age1"
+                    id="meet_filter_age1" />
+                <input class="select2" style="width: 115px;left:550px;" value="<?= $age2;?>" type="number" min="18" max="99" data-filter="meet_filter_age2"
+                    id="meet_filter_age2" />
+
+                <input class="input" type="text" id="meet_filter_city" value="<?= $sm['user']['city']; ?>" />
+                <div class="input-location">
+                    <i class="material-icons">location_on</i>
+                </div>
+                <select class="select3" data-filter="meet_filter_radius" id="meet_filter_radius">
+                    <option value="300" <?php if($sm[ 'user'][ 's_radius']==100) { echo 'selected'; } ?>>All the city</option>
+                    <option value="10000000" <?php if($sm[ 'user'][ 's_radius']==1000) { echo 'selected'; } ?>>
+                        <?= $sm['twoo_lang'][6]['text']; ?>
+                    </option>
+                </select>
+                <select class="select4" id="meet_filter_online" data-filter="meet_filter_online">
+                    <option value="0" selected>
+                        <?= $sm['twoo_lang'][9]['text']; ?>
+                    </option>
+                    <option value="1">
+                        <?= $sm['twoo_lang'][10]['text']; ?>
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="search-result-container">
+
+        <div class="container relative margin-bottom-50">
+
+            <div class="search-section">
+                <div id="searching">
+                    <div class="pulse"></div>
+                    <div class="pulse-photo" data-back-photo="1" data-src="<?= $sm['user']['profile_photo']; ?>"></div>
+                </div>
+                <div id="meet_section"> </div>
+            </div>
+        </div>
+        <div class="rings" style="display:none">
+            <div class="user-photo" data-back-photo="1" data-src="<?= $sm['user']['profile_photo']; ?>"></div>
+            <div class="ring__ringlet"></div>
+            <div class="ring__ringlet"></div>
+            <div class="ring__ringlet"></div>
+        </div>
+    </div>

@@ -1,0 +1,500 @@
+.interstial-wrap {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2222;
+    bottom: 0;
+    padding: 0 20px;
+    background: rgba(0,0,0,.4);
+    width: 100%;
+    height: 100%;
+    overflow-y: auto
+}
+
+.interstial-main-box {
+    background: #fff;
+    border-radius: 10px;
+    max-width: 530px;
+    margin: 40px auto;
+    position: relative;
+    overflow: hidden
+}
+
+.interstial-close {
+    background: url(../plugins/images/close-icon.png) no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10
+}
+
+.interstial-app-screen {
+    background: none;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1
+}
+
+.interstial-app-screen-img {
+    width: 50%;
+    max-width: 480px;
+    margin: 0 auto
+}
+
+.interstial-app-screen-img img {
+    vertical-align: top;
+    width: 100%;
+    margin: 0 0 -20%
+}
+
+.interstial-content {
+    padding: 30px 5%;
+    position: relative;
+    z-index: 2;
+    max-width: 420px;
+    margin: 0 auto
+}
+
+.interstial-logo {
+    margin: 20px 0 15px
+}
+
+.interstial-logo img {
+    height: 30px;
+    vertical-align: top
+}
+
+.interstial-intro {
+    position: absolute;
+    bottom: 35%;
+    left: 0;
+    right: 0
+}
+
+.interstial-intro-text {
+    width: 80%;
+    margin: 0 auto 30px
+}
+
+.interstial-buttons {
+    font-size: 0;
+    line-height: 0
+}
+
+.interstial-buttons-item {
+    display: inline-block;
+    vertical-align: middle;
+    width: 40%;
+    margin: 0 3%;
+    max-width: 150px
+}
+
+.interstial-buttons-item img {
+    width: 100%;
+    vertical-align: top
+}
+
+
+
+
+
+
+
+
+
+.loading_indicator {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    top: 2px;
+    right: 10px;
+    margin: 0;
+    background: url(images/fresh/svgspiner.svg) 50% no-repeat;
+    background-size: 20px;
+    animation: rotating 1s linear infinite;
+    display: none
+}
+
+
+
+.modal-dialog .close {
+    background: url(../plugins/images/plus_icon_dark.svg) center no-repeat;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 15px;
+    margin: auto;
+    opacity: .7;
+    right: 15px;
+    padding: 0;
+    z-index: 10;
+    transform: rotate(45deg)
+}
+
+.add-ava-modal {
+    background: rgba(0,0,0,.5);
+}
+.add-ava-modal .modal-content {
+    overflow: hidden;
+    top: 50px;
+    min-height: 520px
+}
+
+.add-ava-modal .modal-header-inner {
+    opacity: 0!important;
+    height: 65px;
+    margin: 0 0 -65px;
+    box-sizing: border-box
+}
+
+.add-ava-modal .modal-dialog .close {
+    background-image: url(../plugins/images/plus_icon_grey.svg);
+    transition: all .5s
+}
+
+.add-ava-modal .modal-dialog .close:hover {
+    transform: rotate(225deg)
+}
+
+.add-ava-modal .modal-body {
+    background: 0 0;
+    padding: 0;
+    overflow: hidden
+}
+
+.add-ava-visual-box {
+    background: url(../plugins/images/add_avatar_patern.png) 50% #f3982c;
+    font-size: 0;
+    line-height: 0;
+    text-align: center;
+    padding: 250px 0 70px;
+    margin: -230px -5% 0;
+    border-radius: 0 0 50% 50%
+}
+
+.add-ava-visual-item {
+    background-image: url(../plugins/images/add-avatar-popup-photo-placeholder-01.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    border: 3px solid #fff;
+    display: inline-block;
+    vertical-align: middle;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    position: relative
+}
+
+.add-ava-visual-item.user-avatar {
+    background-image: url('');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-color: #fff;
+    border: 2px solid #b0bec5;
+    box-shadow: inset 0 0 0 2px #fff, 0 0 0 5px #fff;
+    width: 160px;
+    height: 160px;
+    box-sizing: border-box;
+    z-index: 2;
+    margin: 0 -20px
+}
+
+.add-ava-visual-item-holder {
+    margin: -3px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: none
+}
+
+.add-ava-go-btn,
+.add-ava-up-btn {
+    min-width: 230px;
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.add-ava-visual-item img {
+    width: 100%;
+    height: 100%
+}
+
+.add-ava-step-upload {
+    display: none;
+    text-align: center
+}
+
+.add-ava-step-upload.add-ava-step-1 {
+    display: block
+}
+
+.add-ava-upload-box {
+    text-align: center;
+    margin: -30px 0 -10px
+}
+
+.add-ava-upload-box form {
+    margin: 0;
+    padding: 0;
+    border-style: none
+}
+
+.add-ava-up-btn {
+    background: #2962ff;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    height: 40px;
+    padding: 10px 20px 10px 40px;
+    box-shadow: 0 2px 7px rgba(41, 98, 255, .5);
+    transition: all .1s
+}
+
+.add-ava-up-btn.disabled {
+    opacity: .5
+}
+
+.add-ava-up-btn:hover {
+    background: #f3982c;
+}
+
+.add-ava-up-btn:after {
+    background: url(../plugins/images/upload_icon.svg) 50% no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    margin: auto
+}
+
+.add-ava-up-btn input[type=file] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 200px;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    cursor: pointer
+}
+
+.add-ava-desc {
+    max-width: 300px;
+    padding: 40px 0 30px;
+    margin: 0 auto;
+    font-size: 13px;
+    color: #000;
+    text-align: center
+}
+
+.add-ava-desc .add-ava-desc-title {
+    font-size: 20px;
+    line-height: 24px;
+    margin: -10px 0 20px;
+    padding: 0
+}
+
+.add-ava-desc p {
+    margin: 0
+}
+
+.add-ava-modal .photo-uploader {
+    text-align: center;
+    margin: 0;
+    padding: 0 0 20px
+}
+
+.add-ava-note {
+    font-size: 14px;
+    line-height: 18px;
+    color: #7f7f7f;
+    margin: 0 0 15px
+}
+
+.add-ava-soc-buttons {
+    text-align: center;
+    font-size: 0;
+    line-height: 0
+}
+
+.add-ava-soc-buttons img {
+    vertical-align: middle
+}
+
+.add-ava-go-btn,
+.add-ava-soc-buttons a {
+    display: inline-block;
+    vertical-align: top
+}
+
+.add-ava-soc-buttons a {
+    background: url(../plugins/images/social-btn.png) no-repeat;
+    background-size: 50px auto;
+    width: 50px!important;
+    height: 50px!important;
+    margin: 0 8px 10px!important;
+    transition: opacity .5s;
+    opacity: 1
+}
+
+.add-ava-soc-buttons a.disabled {
+    opacity: .5;
+    pointer-events: none
+}
+
+.add-ava-soc-buttons a.fb-button {
+    background-position: 0 0
+}
+
+.add-ava-soc-buttons a.mm-button {
+    background-position: 0 -50px
+}
+
+.add-ava-soc-buttons a.vk-button {
+    background-position: 0 -100px
+}
+
+.add-ava-soc-buttons a.in-button {
+    background-position: 0 -300px
+}
+
+.add-ava-soc-buttons a:hover {
+    opacity: .8
+}
+
+.add-ava-go-btn {
+    background: #5cd51a;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    height: 40px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 7px rgba(92, 213, 26, .5);
+    transition: all .5s
+}
+
+.add-ava-go-btn.disabled {
+    pointer-events: none;
+    opacity: .5;
+    cursor: default
+}
+
+.add-ava-go-btn:hover {
+    background: #2962ff;
+    box-shadow: none
+}
+
+.add-ava-modal .loading_indicator {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background: url(../plugins/images/svgspiner.svg) 50% no-repeat;
+    background-size: 20px;
+    margin: -25px 0 0 -25px
+}
+
+.modal-content.loading .loading_indicator {
+    display: block
+}
+
+.modal-content.loading .add-ava-visual-item.user-avatar {
+    background-image: none
+}
+
+.modal-content.loading .add-ava-step-1 {
+    display: none
+}
+
+.modal-content.loading .add-ava-step-2 {
+    display: block
+}
+
+.step_upload {
+    display: none
+}
+
+.step_upload.step_1 {
+    display: block
+}
+
+.step_upload .empty_user {
+    display: none;
+    padding: 11px 0 7px 21px!important
+}
+
+.step_upload .title {
+    font-size: 13px;
+    text-align: center;
+    padding: 5px 80px;
+    margin: 0 20px;
+    position: relative;
+    min-height: 30px;
+    font-weight: 400
+}
+
+.step_upload .title a.back {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 25px;
+    background: #4681FF;
+    padding: 0 8px 0 5px;
+    height: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 30px;
+    border-radius: 0 3px 3px 0;
+    color: #fff
+}
+
+.step_upload .title a.back:before {
+    border-right: 13px solid #4681FF;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    position: absolute;
+    left: -13px;
+    width: 0;
+    height: 0
+}
+
+.photo-uploader-image .holder {
+    display: table;
+    width: 100%
+}
+
+.photo-uploader-image .holder>div {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.photo-uploader-image .holder>div:first-child {
+    padding-right: 18px;
+    width: 100px
+}
+
+.photo-uploader-image img {
+    width: 100%;
+    max-width: 100%
+}

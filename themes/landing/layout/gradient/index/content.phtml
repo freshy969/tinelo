@@ -1,0 +1,529 @@
+<!doctype html>
+	<head>
+		<title><?php echo $sm['config']['title']; ?></title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<?php
+		 if($sm['config']['ios'] != ''){
+			$id = end(explode('/id', parse_url($sm['config']['ios'], PHP_URL_PATH)));
+			echo '<meta name="apple-itunes-app" content="app-id='.$id.'">';
+		 }
+
+		 if($sm['config']['android'] != ''){
+		 	$id = end(explode('=', $sm['config']['android']));
+		 	echo '<meta name="google-play-app" content="app-id='.$id.'">';
+		 }
+		 ?>		 
+
+		<meta name="description" content="<?php echo $sm['config']['description']; ?>">
+
+		<meta name="keywords" content="<?php echo $sm['config']['keywords']; ?>">
+
+		<meta name="author" content="<?php echo $sm['config']['name']; ?>">		
+
+		<noscript>		
+
+		<link rel="stylesheet" href="<?php echo $sm['config']['theme_url_landing']; ?>/assets/css/skel.css" />
+
+		<link rel="stylesheet" href="<?php echo $sm['config']['theme_url_landing']; ?>/assets/css/style.css" />
+
+		</noscript>
+
+		<link rel="stylesheet" href="<?php echo $sm['config']['theme_url_landing']; ?>/assets/css/jquery.smartbanner.css" type="text/css" media="screen">
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/jquery.min.js"></script>
+
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/jquery.dropotron.min.js"></script>
+
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/jquery.scrollgress.min.js"></script>
+
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/skel.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="<?php echo $sm['config']['theme_url']; ?>/assets/css/sweetalert.css">		
+
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/skel-layers.min.js"></script>
+
+
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&key=<?= siteConfig('google_maps'); ?>"></script>	
+		
+		<style>
+
+		/* Preloader */
+
+		#preloader {
+
+			position: fixed;
+
+			top:0;
+
+			left:0;
+
+			right:0;
+
+			bottom:0;
+
+			background:#fff;
+
+		  height:100%;
+
+		  width:100%;
+
+			z-index:999999; /* makes sure it stays on top */
+
+		}
+
+
+
+		#status {
+
+			width:200px;
+
+			height:200px;
+
+			position:absolute;
+
+			left:50%; /* centers the loading animation horizontally one the screen */
+
+			top:50%; /* centers the loading animation vertically one the screen */
+
+			margin:-100px 0 0 -100px; /* is width and height divided by two */
+
+		}
+
+		</style>
+
+		<?php
+
+		$location = json_decode(file_get_contents('http://freegeoip.net/json/'.$_SERVER['REMOTE_ADDR']));
+
+		$site_config = json_encode($sm['config']);
+
+		$site_lang = json_encode($sm['lang']);
+
+		$filter_age = 0;
+
+		echo 
+
+		'<script>
+
+		var url;
+
+		var mobile = false;		
+
+		var site_config = '. $site_config  . ';
+
+		var site_lang = '. $site_lang  . ';
+
+		function request_source(){
+
+			return \'' . $sm['config']['ajax_path'] . '\';
+
+		}
+
+		function site_title(){
+
+			return \'' . $sm['config']['title'] . '\';
+
+		}	
+
+		function theme_source(){
+
+			return \'' . $sm['config']['theme_url'] . '\';
+
+		}
+
+		function site_url(){
+
+			return \'' . $sm['config']['site_url'] . '\';
+
+		}	
+
+		var current_user_id = 0;
+
+		var user_name;	
+
+		</script>';
+
+		?>		
+
+	</head>
+
+	<body class="landing">
+
+			<div id="preloader">
+
+				<div id="status"><div class="profile-outer-ring"></div></div>
+
+			</div>	
+
+			<header id="header" class="alt">
+
+				<nav id="nav">
+
+				  <ul>
+
+						<li>
+
+							<a href="javascript:;" class="icon fa-angle-down"><span class="icon fa-globe"></span></a>
+
+							<ul> 
+
+                            <table>
+
+                            <tr>
+
+								<?= getSiteLangsIndex(0,6); ?>                          
+
+                            </tr>
+
+								<?= getSiteLangsIndex(6,6); ?>  
+
+                            <tr>                        
+
+                            </tr>
+
+								<?= getSiteLangsIndex(12,6); ?>
+
+                            <tr>                           
+
+                            </tr>
+
+								<?= getSiteLangsIndex(18,6); ?>
+
+                            <tr>                          
+
+                            </tr> 
+
+								<?= getSiteLangsIndex(24,6); ?>
+
+                            <tr>                          
+
+                            </tr>
+
+								<?= getSiteLangsIndex(30,6); ?>
+
+                            <tr>                           
+
+                            </tr>
+
+								<?= getSiteLangsIndex(36,6); ?>
+
+                            <tr>                           
+
+                            </tr>
+
+								<?= getSiteLangsIndex(42,6); ?>
+
+                            <tr>                          
+
+                            </tr>  
+
+                            </table>                           
+
+                       		</ul>
+
+						</li>						
+
+						<li><a href="javascript:;" data-login="true" class="button special"><?= $sm['lang'][1]['text']; ?></a></li>
+
+					</ul>
+
+				</nav>
+
+			</header>
+
+			<div class="main">
+
+		
+				<div class="background"></div>
+				<div class="content">
+					<div class="form">
+					<h1>Hello!</h1>
+					<div class="container">
+						<form>
+						<input placeholder="Username" type="text" name="username1" class="username" required />
+								<label for="username1"  style="display:none">Username Required</label>
+						<input placeholder="Password" type="password" class="password1" name="password" required/>
+						<label for="password1"  style="display:none">Password Required</label>
+						<button id="login" class="btn" />Sign In</button>
+						</form>
+					</div>
+					</div>
+				</div>
+
+			</div>
+
+ 	
+
+		<script src="<?php echo $sm['config']['theme_url']; ?>/assets/js/jquery.preload.js"></script>
+
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/dynamics.js"></script>
+
+		<script src="<?php echo $sm['config']['theme_url']; ?>/assets/js/sweetalert.min.js"></script> 
+
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/init.js"></script>
+		<script src="<?php echo $sm['config']['theme_url_landing']; ?>/assets/js/jquery.smartbanner.js"></script>
+		<?= siteConfig('js'); ?>		
+		<script type="text/javascript">
+		var w = $(window).width();	
+
+		$('video')[0].play();
+
+		$('video')[0].pause();		
+
+		$(window).load(function() {		
+
+			var h = $(window).height();	
+
+			$('.main').css('height',h+'px'); 
+
+			$('#status').fadeOut(); // will first fade out the loading animation
+
+			$('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+
+			$('body').delay(350).css({'overflow':'visible'});
+
+			var position = $('#cityName').offset();
+
+			var maxW = $('#cityName').width();
+
+			var left = position.left - 5;
+
+			$('.latest-users').css('left',left+'px');		
+
+			setTimeout(function(){
+
+				$('video')[0].play();
+
+				$('video').show(); 
+
+			},1500);
+
+			var xaxa = 0;
+
+				setTimeout(function(){
+
+				var show_search = setInterval(function(){	
+
+					if(xaxa == 7){
+
+						clearInterval(show_search);				
+
+					}
+
+					$('[data-search-show='+xaxa+']').fadeIn();
+
+					xaxa++;					
+
+				},300);
+
+			},1500);			
+
+			$('body').keyup(function(e) {
+
+				switch (e.keyCode) {
+
+					case 13: // Enter
+
+						$('#login-now').click();
+
+					break;
+
+				}
+
+			});
+
+			
+
+			$('[data-join]').click(function(e){
+
+				e.preventDefault();
+
+				$('[data-j]').hide();
+
+				$('.header-text').hide();
+
+				$('.latest-users').hide();
+
+				$('.top-logo img').addClass('scale-logo');
+
+				setTimeout(function(){
+
+					$('#forms').fadeIn();
+
+				},300);				
+
+				$('.top-logo').animate({								 
+
+					top: '-10px'
+
+					}, 500, function() {
+
+				});				
+
+			});
+
+			$('select').change(function(e){
+
+				$(this).css('color','#333');
+
+			});
+
+			
+
+			$('.more').click(function(e){
+
+				e.preventDefault();
+
+				if($('.socials').css('opacity') == 0){
+
+					show();
+
+					$('#more-icon').removeClass('fa-ellipsis-h');
+
+					$('#more-icon').addClass('fa-close');
+
+				} else {
+
+					hide();
+
+					$('#more-icon').removeClass('fa-close');							
+
+					$('#more-icon').addClass('fa-ellipsis-h');							
+
+				}
+
+			});					
+
+			var nav = document.querySelector('.socials')
+
+			var items = document.querySelectorAll('.socials ul li')
+
+
+
+			function show() {
+
+			  // Animate the popover
+
+			  dynamics.animate(nav, {
+
+				opacity: 1,
+
+				scale: 1
+
+			  }, {
+
+				type: dynamics.spring,
+
+				frequency: 200,
+
+				friction: 270,
+
+				duration: 800
+
+			  })
+
+
+			  for(var i=0; i<items.length; i++) {
+
+				var item = items[i]
+
+				// Define initial properties
+
+				dynamics.css(item, {
+
+				  opacity: 0,
+
+				  translateY: 20
+
+				})
+				dynamics.animate(item, {
+
+				  opacity: 1,
+
+				  translateY: 0
+
+				}, {
+
+				  type: dynamics.spring,
+
+				  frequency: 300,
+
+				  friction: 435,
+
+				  duration: 1000,
+
+				  delay: 100 + i * 40
+				})
+			  }
+			}
+			function hide() {
+			  dynamics.animate(nav, {
+
+				opacity: 0,
+
+				scale: .1
+
+			  }, {
+
+				type: dynamics.easeInOut,
+
+				duration: 300,
+
+				friction: 100
+
+			  })
+
+			}
+		})
+		 $(function() {
+	   		 $.smartbanner({ title:'<?= $sm['config']['name']; ?>' });	
+	     });
+		function detect_device(val) {
+
+			var w = window,
+
+				d = document,
+
+				e = d.documentElement,
+
+				g = d.getElementsByTagName('body')[0],
+
+				x = w.innerWidth || e.clientWidth || g.clientWidth,
+
+				y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+
+			var isiPhone = 		navigator.userAgent.toLowerCase().indexOf("iphone");
+
+			var isiPad = 		navigator.userAgent.toLowerCase().indexOf("ipad");
+
+			var isiPod = 		navigator.userAgent.toLowerCase().indexOf("ipod");
+
+			var isiAndroid = 	navigator.userAgent.toLowerCase().indexOf("android");
+			if(x <= 600){
+				$('.header-text').css('width',x+'px');
+				$('.top-logo').css('width',x+'px');
+				$('.fbottom').css('width',x+'px');
+				var g = x/1.1;
+				$('.left .button').css('width',g+'px');
+				$('.left .button').hide();
+				$('#header').hide();
+				$('#mobileOnly').show();
+				$('.latest-users').hide();
+			} else {
+				if(val == 1){
+					window.location.href = '<?= $sm['config']['site_url']; ?>';
+				}
+			}
+		}
+		detect_device(0);
+		$( window ).resize(function() {
+		  detect_device(1);
+		});
+		</script> 		
+
+	</body>
+
+</html>

@@ -1,0 +1,683 @@
+<?php 
+
+if($_GET['id'] != NULL ){	
+    $usid = secureEncode($_GET['id']);		
+    getUserInfo($usid,1);
+}
+
+$check = blockedUser($sm['user']['id'],
+$sm['profile']['id']);
+
+if($check == 1){	
+    header('Location:'.$sm['config']['site_url']);
+}
+
+$profile_info = json_encode($sm['profile']);	
+echo '<script>current_user_id = ' . $sm['profile']['id'] .';var profile_info = '. $profile_info  . ';	url = "profile-me";</script>';?>
+
+<div class="profile">
+    <div class="container relative">
+        <div class="pro margin-top-25 margin-bottom-50 border-radius white-back">
+            <div class="profile-header">
+                <div class="photo-back" data-main-background="1">
+                    <div class="photo" data-back-photo="1" data-src="<?= $sm['profile']['profile_photo']; ?>"></div>
+                </div>
+                <h3>
+                    <?= $sm['profile']['name']; ?>,
+                        <span>
+                            <?= $sm['profile']['age']; ?>
+                        </span>
+                        <?php if($sm['profile']['status_info'] == 1){ echo '<div class="online"></div>'; } ?>
+                        <?php if($sm['profile']['premium'] == 1){ echo '<img src="'.$sm['config']['theme_url'].'/img/premium.png" width="24px" />'; } ?>
+                </h3>
+                <h4 style="color:#45C000">
+                    <?= $sm['twoo_lang'][94]['text']; ?>
+                </h4>
+
+                <div class="add-photo-header" style="cursor:pointer" id="photo-import">Add photo</div>
+                <a href="<?= $sm['config']['site_url']; ?>sprofile">
+                    <span class="profile-right-btn-edit">
+                        <?= $sm['twoo_lang'][110]['text']; ?>
+                    </span>
+                </a>
+
+            </div>
+            <div class="profile-photos">
+
+                <div class="photo-set" style="display:none;">
+                    <div class="add-photo-public" id="add-photos">
+                        <i class="material-icons">camera_alt</i>
+                        <span>
+                            <?= $sm['twoo_lang'][95]['text']; ?>
+                        </span>
+                    </div>
+                    <?php  if($sm['user']['total_photos'] == 0 ){ ?>
+                    <div class="add-photo-private">
+                        <i class="material-icons">lock</i>
+                        <span>
+                            <?= $sm['twoo_lang'][96]['text']; ?>
+                        </span>
+                    </div>
+                    <?php  } else { ?>
+                    <div class="add-photo-private" id="private-photos">
+                        <i class="material-icons">lock</i>
+                        <span>
+                            <?= $sm['twoo_lang'][96]['text']; ?>
+                        </span>
+                    </div>
+                    <?php  } ?>
+                    <div class="add-photo-instagram" id="insta-import">
+                        <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/insta.png" />
+                        <span>
+                            <?= $sm['lang'][282]['text'];?> Instagram</span>
+                    </div>
+                </div>
+
+                <div class="photos">
+                    <div class="photo-loader" style="display:none">
+                        <div class='loader-ring'>
+                            <div class='loader-ring-light'></div>
+                            <div class='loader-ring-track'></div>
+                        </div>
+                    </div>
+
+                    <? if($sm['user']['total_photos'] == 0 ) { ?>
+
+                        <div class="modal-body" style="background-color:#eeeeee; width:100%; height:100%;">
+
+                            <div class="add-ava-step-1 add-ava-step-upload">
+                                <div class="">
+                                    <a class="add-ava-up-btn fileUpload" id="firstPhoto" style="cursor: pointer;">
+                                        Upload from your computer
+                                    </a>
+                                </div>
+                                <div class="add-ava-desc">
+                                    <p>Upload your photo, Users without avatar do not appear in Discover and can not interact
+                                        completely in this site.</p>
+                                </div>
+                            </div>
+
+                            <div class="add-ava-step-2 add-ava-step-upload">
+                                <div class="add-ava-desc">
+                                    <h2 class="add-ava-desc-title">The best photo of
+                                        <?= $sm['config']['name']; ?> history!</h2>
+                                    <p>Let's check how much people is out there!</p>
+                                </div>
+                                <a class="add-ava-go-btn disabled">Please give us 1 sec...</a>
+                            </div>
+                        </div>
+
+                        <? }else { ?>
+
+                            <div id="userPhotos">
+                                <?= getUserPhotosHeaderTwoo($sm['profile']['id']); ?>
+                            </div>
+
+                            <?php } ?>
+
+                </div>
+            </div>
+            <div class="profile-menu">
+                <ul>
+                    <li data-profile-menu="1" data-menu-active="1">
+                        <?= $sm['twoo_lang'][97]['text']; ?>
+                    </li>
+                    <!-- off
+                    <li data-profile-menu="2" data-menu-active="0">
+                        <?= $sm['twoo_lang'][98]['text']; ?>
+                    </li>
+                    
+                    <li data-profile-menu="3" data-menu-active="0">
+                        <?= $sm['twoo_lang'][99]['text']; ?>
+                    </li>
+                    -->
+                </ul>
+            </div>
+            <div class="profile-body">
+                <div data-profile-tab="1">
+                    <div class="box">
+
+                        <h3>
+                            <?= $sm['twoo_lang'][100]['text']; ?>
+                        </h3>
+                        <span>
+                            <?php if($sm['profile']['bio'] == NULL){ ?>
+                            <?= $sm['twoo_lang'][101]['text']; ?>
+                                <?php } else { echo $sm['profile']['bio']; } ?> </span>
+                        <h3 style="padding-top:25px;border-top:solid 1px #eee;">
+                            <?= $sm['lang'][276]['text']; ?>
+                        </h3>
+                        <div class="interests">
+                            <div id="new-int">
+                                <div class="int" data-add-interest style="background:#6ACC33;cursor:pointer;">
+                                    <span style="color:#fff">
+                                        <?= $sm['lang'][283]['text']; ?>
+                                            <?= $sm['lang'][276]['text']; ?>
+                                    </span>
+                                </div>
+                                <div class="int">
+                                    <span>
+                                        <?= $sm['config']['name']; ?>
+                                    </span>
+                                </div>
+                                <?php										foreach ($sm['profile']['interest'] as $valor) {											echo '<div class="int" data-interest="'.$valor['id'].'"><span>'.$valor['name'].'</span><div class="delete_int" onclick="deleteInterest('."'".$valor['id']."'".')" ><i class="material-icons">close</i></div></div>';										} 									?> </div>
+                        </div>
+                        <h3 style="padding-top:25px;border-top:solid 1px #eee;">
+                            <?= $sm['twoo_lang'][108]['text']; ?>
+                        </h3>
+                        <ul>
+                            <?php if($sm['profile']['s_gender'] == 1){ ?>
+                            <li>
+                                <?= $sm['twoo_lang'][8]['text']; ?>
+                            </li>
+                            <?php } else { ?>
+                            <li>
+                                <?= $sm['twoo_lang'][7]['text']; ?>
+                            </li>
+                            <?php } ?>
+                            <?php									$e_age = explode( ',', $sm['profile']['s_age'] );									$age1 = $e_age[0];									$age2 = $e_age[1]; ?>
+                                <li>
+                                    <?= $sm['twoo_lang'][3]['text']; ?>
+                                        <?=$age1; ?>
+                                            <?= $sm['twoo_lang'][4]['text']; ?>
+                                                <?=$age2; ?>
+                                </li>
+                                <li>
+                                    <?=$sm['profile']['country'];?>
+                                </li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <div id="trendingInterest" style="display:none">
+                            <h3 style="font-size:14px;color:#888">Trending
+                                <?= $sm['lang'][276]['text']; ?>
+                            </h3>
+                            <?php 									$interest = topInterest();									foreach ($interest as $valor) {										echo '<div class="top-int" style="cursor:pointer"><span>'.$valor['name'].'</span></div>'; 									}								?> </div>
+                        <div id="socialVerify">
+                            <h3>
+                                <?= $sm['twoo_lang'][102]['text']; ?>
+                            </h3>
+                            <br>
+                            <div class="verification">
+                                <ul>
+                                    <li>
+                                        <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/premium.png" />
+                                        <h4>Premium</h4>
+                                        <?php  if($sm['profile']['premium'] == 0){ ?>
+                                        <h5>
+                                            <?= $sm['twoo_lang'][105]['text']; ?>
+                                        </h5>
+                                        <a href="#" data-open-premium-modal="1">
+                                            <span class="bn-verification">
+                                                <?= $sm['twoo_lang'][16]['text']; ?>
+                                            </span>
+                                        </a>
+                                        <?php  } else { ?>
+                                        <h5>
+                                            <?= $sm['twoo_lang'][106]['text']; ?>
+                                        </h5>
+                                        <?php  } ?> </li>
+                                    <?php  if(siteConfig('fb_app_id') != ''){ ?>
+                                    <li>
+                                        <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/fb.jpg" />
+                                        <h4>Facebook</h4>
+                                        <?php  if($sm['profile']['facebook_id'] == 0){ ?>
+                                        <h5>
+                                            <?= $sm['twoo_lang'][103]['text']; ?>
+                                        </h5>
+                                        <a href="<?= $sm['config']['site_url']; ?>index.php?social=fb">
+                                            <span class="bn-verification">
+                                                <?= $sm['twoo_lang'][107]['text']; ?>
+                                            </span>
+                                        </a>
+                                        <?php  } else { ?>
+                                        <h5>
+                                            <?= $sm['twoo_lang'][104]['text']; ?>
+                                        </h5>
+                                        <?php  } ?> </li>
+                                    <?php  } ?>
+                                    <?php  if(siteConfig('twitter_key') != ''){ ?>
+                                    <li>
+                                        <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/twitter.jpg" />
+                                        <h4>Twitter</h4>
+                                        <?php  if($sm['profile']['twitter_id'] == ''){ ?>
+                                        <h5>
+                                            <?= $sm['twoo_lang'][103]['text']; ?>
+                                        </h5>
+                                        <a href="<?= $sm['config']['site_url']; ?>index.php?social=twitter">
+                                            <span class="bn-verification">
+                                                <?= $sm['twoo_lang'][107]['text']; ?>
+                                            </span>
+                                        </a>
+                                        <?php  } else { ?>
+                                        <h5>
+                                            <?= $sm['twoo_lang'][104]['text']; ?>
+                                        </h5>
+                                        <?php  } ?> </li>
+                                    <?php  } ?>
+                                    <li>
+                                        <?php  if(siteConfig('google_key') != ''){ ?>
+                                        <li>
+                                            <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/google.jpg" />
+                                            <h4>Google</h4>
+                                            <?php  if($sm['profile']['google_id'] == ''){ ?>
+                                            <h5>
+                                                <?= $sm['twoo_lang'][103]['text']; ?>
+                                            </h5>
+                                            <a href="<?= $sm['config']['site_url']; ?>index.php?social=google">
+                                                <span class="bn-verification">
+                                                    <?= $sm['twoo_lang'][107]['text']; ?>
+                                                </span>
+                                            </a>
+                                            <?php  } else { ?>
+                                            <h5>
+                                                <?= $sm['twoo_lang'][104]['text']; ?>
+                                            </h5>
+                                            <?php  } ?> </li>
+                                        <?php  } ?>
+                                        <?php  if(siteConfig('instagram_key') != ''){ ?>
+                                        <li>
+                                            <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/instagram.png" />
+                                            <h4>Instagram</h4>
+                                            <?php  if($sm['profile']['instagram_id'] == ''){ ?>
+                                            <h5>
+                                                <?= $sm['twoo_lang'][103]['text']; ?>
+                                            </h5>
+                                            <a href="<?= $sm['config']['site_url']; ?>index.php?social=instagram">
+                                                <span class="bn-verification">
+                                                    <?= $sm['twoo_lang'][107]['text']; ?>
+                                                </span>
+                                            </a>
+                                            <?php  } else { ?>
+                                            <h5>
+                                                <?= $sm['twoo_lang'][104]['text']; ?>
+                                            </h5>
+                                            <?php  } ?> </li>
+                                        <?php  } ?> </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-wide">
+                        <h3>
+                            <?= $sm['twoo_lang'][109]['text']; ?>
+                        </h3>
+                        <!-- off
+                        <a href="<?= $sm['config']['site_url']; ?>settings">
+                            <span class="profile-right-btn-edit">
+                                <?= $sm['twoo_lang'][110]['text']; ?>
+                            </span>
+                        </a>
+                        -->
+                        <ul>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/1.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][111]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?=$sm['profile']['name'];?>
+                                </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/2.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][112]['text']; ?>
+                                </h4>
+                                <?php  if($sm['profile']['gender'] == 1){ ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][113]['text']; ?>
+                                </h5>
+                                <?php  } else { ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][114]['text']; ?>
+                                </h5>
+                                <?php  } ?> </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/11.png" />
+                                <h4>
+                                    <?= $sm['lang'][32]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?=$sm['profile']['city'];?>
+                                </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/7.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][115]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field2'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field2'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/3.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][118]['text']; ?>
+                                </h4>
+                                <?php  if($sm['profile']['birthday'] == ''){ ?>
+                                <h5>
+                                    <span style="font-style: italic;color:#999;font-size:13px;">
+                                        <?= $sm['lang'][279]['text']; ?>
+                                    </span>
+                                </h5>
+                                <?php  } else { ?>
+                                <h5>
+                                    <?= $sm['profile']['birthday']; ?>
+                                </h5>
+                                <?php  } ?> </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/4.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][119]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?= getCurrentLang($sm['user']['lang']); ?>
+                                </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/5.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][120]['text']; ?>
+                                </h4>
+                                <?php  if($sm['profile']['s_gender'] == 1){ ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][8]['text']; ?>
+                                </h5>
+                                <?php  } else { ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][7]['text']; ?>
+                                </h5>
+                                <?php  } ?> </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/6.png" />
+                                <h4>
+                                    <?= $sm['lang'][223]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field1'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field1'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/15.png" />
+                                <h4>
+                                    <?= $sm['lang'][232]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field3'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field3'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/14.png" />
+                                <h4>
+                                    <?= $sm['lang'][235]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field4'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field4'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/12.png" />
+                                <h4>
+                                    <?= $sm['lang'][236]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field5'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field5'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/13.png" />
+                                <h4>
+                                    <?= $sm['lang'][246]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field6'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field6'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/19.png" />
+                                <h4>
+                                    <?= $sm['lang'][252]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field7'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field7'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/16.png" />
+                                <h4>
+                                    <?= $sm['lang'][263]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field10'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field10'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/17.png" />
+                                <h4>
+                                    <?= $sm['lang'][258]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field8'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field8'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/18.png" />
+                                <h4>
+                                    <?= $sm['lang'][262]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field9'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field9'];										} ?> </h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--
+                <div data-profile-tab="2">
+                    <div class="box-wide">
+                        <h3>
+                            <?= $sm['twoo_lang'][109]['text']; ?>
+                        </h3>
+                        <a href="<?= $sm['config']['site_url']; ?>settings">
+                            <span class="profile-right-btn-edit">
+                                <?= $sm['twoo_lang'][110]['text']; ?>
+                            </span>
+                        </a>
+                        <ul>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/1.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][111]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?=$sm['profile']['name'];?>
+                                </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/2.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][112]['text']; ?>
+                                </h4>
+                                <?php  if($sm['profile']['gender'] == 1){ ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][113]['text']; ?>
+                                </h5>
+                                <?php  } else { ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][114]['text']; ?>
+                                </h5>
+                                <?php  } ?> </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/11.png" />
+                                <h4>
+                                    <?= $sm['lang'][32]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?=$sm['profile']['city'];?>
+                                </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/7.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][115]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field2'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field2'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/3.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][118]['text']; ?>
+                                </h4>
+                                <?php  if($sm['profile']['birthday'] == ''){ ?>
+                                <h5>
+                                    <span style="font-style: italic;color:#999;font-size:13px;">
+                                        <?= $sm['lang'][279]['text']; ?>
+                                    </span>
+                                </h5>
+                                <?php  } else { ?>
+                                <h5>
+                                    <?= $sm['profile']['birthday']; ?>
+                                </h5>
+                                <?php  } ?> </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/4.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][119]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?= getCurrentLang($sm['user']['lang']); ?>
+                                </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/5.png" />
+                                <h4>
+                                    <?= $sm['twoo_lang'][120]['text']; ?>
+                                </h4>
+                                <?php  if($sm['profile']['s_gender'] == 1){ ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][8]['text']; ?>
+                                </h5>
+                                <?php  } else { ?>
+                                <h5>
+                                    <?= $sm['twoo_lang'][7]['text']; ?>
+                                </h5>
+                                <?php  } ?> </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/6.png" />
+                                <h4>
+                                    <?= $sm['lang'][223]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field1'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field1'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/15.png" />
+                                <h4>
+                                    <?= $sm['lang'][232]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field3'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field3'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/14.png" />
+                                <h4>
+                                    <?= $sm['lang'][235]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field4'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field4'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/12.png" />
+                                <h4>
+                                    <?= $sm['lang'][236]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field5'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field5'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/13.png" />
+                                <h4>
+                                    <?= $sm['lang'][246]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field6'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field6'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/19.png" />
+                                <h4>
+                                    <?= $sm['lang'][252]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field7'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field7'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/16.png" />
+                                <h4>
+                                    <?= $sm['lang'][263]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field10'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field10'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/17.png" />
+                                <h4>
+                                    <?= $sm['lang'][258]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field8'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field8'];										} ?> </h5>
+                            </li>
+                            <li>
+                                <img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/icons/18.png" />
+                                <h4>
+                                    <?= $sm['lang'][262]['text']; ?>
+                                </h4>
+                                <h5>
+                                    <?php  if($sm['profile']['extended']['field9'] == ''){											echo '<span style="font-style: italic;color:#999;font-size:13px;">'.$sm['lang'][279]['text'].'</span>';										} else { 											echo $sm['profile']['extended']['field9'];										} ?> </h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div data-profile-tab="3">
+                    <? if($sm['user']['total_photos'] == 0 ) { ?>
+
+                        <div class="modal-body">
+
+                            <div class="add-ava-step-1 add-ava-step-upload">
+                                <div class="">
+                                    <a class="add-ava-up-btn fileUpload" id="firstPhoto" style="cursor: pointer;">
+                                        Upload from your computer
+                                    </a>
+                                </div>
+                                <div class="add-ava-desc">
+                                    <p>Upload your photo, Users without avatar do not appear in Discover and can not interact
+                                        completely in this site.</p>
+                                </div>
+                                <div class="photo-uploader">
+                                    <div class="add-ava-note">
+                                        Upload with one click </div>
+                                    <div class="add-ava-soc-buttons">
+                                        <a class="in-button" id="insta-import2" data-type="in"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="add-ava-step-2 add-ava-step-upload">
+                                <div class="add-ava-desc">
+                                    <h2 class="add-ava-desc-title">The best photo of
+                                        <?= $sm['config']['name']; ?> history!</h2>
+                                    <p>Let's check how much people is out there!</p>
+                                </div>
+                                <a class="add-ava-go-btn disabled">Please give us 1 sec...</a>
+                            </div>
+                        </div>
+
+                        <? }else { ?>
+
+                            <div class="box-wide" id="managePhotos"> </div>
+
+                            <?php } ?>
+                </div>
+                -->
+            </div>
+        </div>
+        <div> </div>
+        <form enctype="multipart/form-data" name='imageform' role="form" id="add-photos-form" method="post" action="<?php echo $sm['config']['site_url']; ?>assets/sources/ajaxImage.php">
+            <input type="file" name="photos[]" id="add-photos-file" onChange="readFile();" accept="image/*" multiple="true" style="display:none"
+            />
+        </form>
+        <form enctype="multipart/form-data" name='imageform' role="form" id="add-private-photos-form" method="post" action="<?php echo $sm['config']['site_url']; ?>/assets/sources/privateImage.php">
+            <input type="file" name="photos[]" accept="image/*" id="add-private-photos-file" multiple="true" style="display:none" />
+        </form>

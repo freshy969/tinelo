@@ -1,0 +1,130 @@
+<script>
+	url = "matches";
+</script>
+<?php $matches = userMatchesTwoo(); ?>
+<div class="discover">
+	<div class="container relative">
+		<?php if($sm['user']['premium'] == 0 && siteConfig('ads') != ''){                echo '<div data-ad="1" style="position:relative;width:100%;height:90px;top:10px;">'.siteConfig('ads').'</div>';                }            ?>
+		<div class="left-content">
+			<?php if($matches == ''){ ?>
+			<div class="credits-section">
+				<h1>
+					<?= $sm['user']['first_name']; ?>,
+						<?= $sm['twoo_lang'][91]['text']; ?>
+				</h1>
+				<h4>
+					<?= $sm['twoo_lang'][68]['text']; ?>
+				</h4>
+				<div class="hr"></div>
+				<div class="boost">
+					<img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/boost.png" />
+					<div class="photo" data-back-photo="1" data-src="<?= $sm['user']['profile_photo']; ?>"></div>
+				</div>
+				<h1>
+					<?= $sm['twoo_lang'][69]['text']; ?>
+				</h1>
+				<h4>
+					<?= $sm['twoo_lang'][70]['text']; ?>
+				</h4>
+				<center>
+					<a href="#">
+						<span class="boost-me">
+							<?= $sm['twoo_lang'][71]['text']; ?>
+						</span>
+					</a>
+				</center>
+				<br>
+				<h4>
+					<?= $sm['twoo_lang'][13]['text']; ?>
+						<b>100</b>
+						<?= $sm['twoo_lang'][17]['text']; ?>
+				</h4>
+				<div class="hr hr2"></div>
+				<div class="spotl">
+					<img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/spotlight.png" class="over" />
+					<div class="photo" data-back-photo="1" data-src="<?= $sm['user']['profile_photo']; ?>"></div>
+				</div>
+				<h1>
+					<?= $sm['twoo_lang'][72]['text']; ?>
+				</h1>
+				<h4>
+					<?= $sm['twoo_lang'][73]['text']; ?>
+				</h4>
+				<center>
+					<a href="#">
+						<span class="spotlight-me">
+							<?= $sm['twoo_lang'][74]['text']; ?>
+						</span>
+					</a>
+				</center>
+				<br>
+				<h4>
+					<?= $sm['twoo_lang'][13]['text']; ?>
+						<b>
+							<?= $sm['price']['spotlight']; ?>
+						</b>
+						<?= $sm['twoo_lang'][17]['text']; ?>
+				</h4>
+				<div class="hr hr2"></div>
+				<div class="first">
+					<img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/first.png" class="over" />
+					<div class="photo" data-back-photo="1" data-src="<?= $sm['user']['profile_photo']; ?>"></div>
+				</div>
+				<h1>
+					<?= $sm['twoo_lang'][75]['text']; ?>
+				</h1>
+				<h4>
+					<?= $sm['twoo_lang'][76]['text']; ?>
+				</h4>
+				<center>
+					<a href="#">
+						<span class="first-me">
+							<?= $sm['twoo_lang'][77]['text']; ?>
+						</span>
+					</a>
+				</center>
+				<br>
+				<h4>
+					<?= $sm['twoo_lang'][13]['text']; ?>
+						<b>100</b>
+						<?= $sm['twoo_lang'][17]['text']; ?>
+				</h4>
+				<div class="hr hr2"></div>
+				<div class="cientimes">
+					<img src="<?php echo $sm['config']['theme_url']; ?>/assets/img/discover.png" class="over" />
+					<div class="photo" data-back-photo="1" data-src="<?= $sm['user']['profile_photo']; ?>"></div>
+				</div>
+				<h1>
+					<?= $sm['twoo_lang'][78]['text']; ?>
+				</h1>
+				<h4>
+					<?= $sm['twoo_lang'][79]['text']; ?>
+				</h4>
+				<center>
+					<a href="#">
+						<span class="cien-me">
+							<?= $sm['twoo_lang'][80]['text']; ?>
+						</span>
+					</a>
+				</center>
+				<br>
+				<h4>
+					<?= $sm['twoo_lang'][13]['text']; ?>
+						<b>100</b>
+						<?= $sm['twoo_lang'][17]['text']; ?>
+				</h4>
+				<div class="hr hr2"></div>
+			</div>
+			<?php } else { ?>
+			<h3>
+				<?= $sm['twoo_lang'][92]['text']; ?>
+			</h3>
+			<ul>
+				<?= $matches; ?>
+			</ul>
+			<?php } ?> </div>
+		<div class="right-adsection">
+			<?= siteConfig('ads2'); ?>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,36 @@
+.page-content{
+    position: relative;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    width: 1170px;
+    min-height: 100vh;
+    height: 100%;
+    margin: 0 auto;
+    transition: width .3s ease-in-out;
+}
+
+.page-left{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    width: 270px;
+    transition: width .3s ease-in-out;
+    will-change: transform;
+}
+
+.page-right{
+    z-index: 1;
+    left: 270px;
+    background: #fff;
+    box-shadow: 1px 0 5px rgba(0,0,0,.1);
+    transition: left .3s ease-in-out;
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+    width: 900px;
+    position: relative;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}

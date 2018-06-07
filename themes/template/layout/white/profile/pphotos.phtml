@@ -1,0 +1,39 @@
+            <div class="col s7 real">			
+                <div class="profile-menu center-align ">
+                    <ul>
+                        <li  data-url="about"  data-uid="<?= $sm['profile']['id']; ?>">
+                            About <?= $sm['profile']['first_name']; ?>
+                        </li>
+						
+                        <li>
+                            <b><?= $sm['profile']['total_likers']; ?></b> Fans
+                        </li>	
+						
+						<? if($sm['profile']['total_photos_public'] > 0){ ?>
+                        <li data-url="photos" data-uid="<?= $sm['profile']['id']; ?>">
+                            <b><?= $sm['profile']['total_photos_public']; ?></b> Public Photos
+                        </li>
+						<? } else { ?>
+                        <li>
+                            <b>0</b> Public Photos
+                        </li>
+						<? } ?>
+						
+						<? if($sm['profile']['total_photos_private'] > 0){ ?>
+                        <li class="selected" data-url="pphotos"  data-uid="<?= $sm['profile']['id']; ?>">
+                            <b><?= $sm['profile']['total_photos_private']; ?></b> Private Photos
+                        </li>   
+						<? } else { ?>
+                        <li>
+                            <b>0</b> Private Photos
+                        </li>
+						<? } ?>						
+                    </ul>
+                </div>
+                
+                <div class="profile-content-photos">
+                    <div class="photos left-algin">
+						<?= getUserPrivatePhotos($sm['user']['id'],$sm['profile']['id']); ?>
+                    </div>
+                </div>
+            </div> 

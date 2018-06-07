@@ -1,0 +1,18 @@
+<ifModule mod_headers.c>
+   Header set Access-Control-Allow-Origin:  "*"
+</ifModule>
+# For security reasons, Option followsymlinks cannot be overridden.
+#Options +FollowSymLinks
+Options +SymLinksIfOwnerMatch
+
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^([A-Za-z0-9-]+)/?$ index.php?page=$1
+RewriteRule ^profile/([0-9]+)/([A-Za-z0-9-]+)/?$ index.php?page=profile&id=$1
+RewriteRule ^search/([0-9]+)/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ index.php?page=search&cid=$1&g=$2
+RewriteRule ^m_profile/([0-9]+)/([A-Za-z0-9-]+)/?$ mobile.php?page=profile&id=$1
+RewriteRule ^chat/([0-9]+)/([A-Za-z0-9-]+)/?$ index.php?page=chat&id=$1
+
+
+

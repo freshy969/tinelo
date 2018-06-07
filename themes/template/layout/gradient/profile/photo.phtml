@@ -1,0 +1,54 @@
+							<?php
+							$private = 0;
+							if($sm['photo']['blocked']== 1){
+									$view = unblockedUser($sm['user']['id'],$sm['photo']['uid']);
+									if($view == 1){
+										$photo = $sm['photo']['src']; 
+									} else {
+										$photo = $sm['photo']['private']; 
+										$private = 1;
+									}
+									
+								} else { 
+									$photo = $sm['photo']['src']; 
+								}
+							?>	
+							
+							<?php if($sm['photo']['me'] == 1){ ?>
+								<div class='photo-current' data-back-photo='1' src='<?=$sm['photo']['src']; ?>' data-src='<?=$sm['photo']['src']; ?>'
+									data-id='<?=$sm['photo']['id']; ?>'
+									data-user='<?=$sm['photo']['user']; ?>'
+									data-photo-like='<?=$sm['photo']['like']; ?>' 
+									data-likes='<?=$sm['photo']['likes']; ?>' 
+									data-del-photo='<?=$sm['photo']['id']; ?>'
+									data-desc='<?=$sm['photo']['desc']; ?>'									
+									data-comments='<?=$sm['photo']['comments']; ?>'>
+									<div class="btn-group profile-photos-drop">
+									  <button type="button" class="bn " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+									  <ul class="dropdown-menu profile-photos-dropdown">
+										<?php if($sm['photo']['blocked']== 1){ ?>									
+											<li><a href="#" data-unblock-photo="1" data-pid="<?=$sm['photo']['id']; ?>">Move to public photos</a></li>											
+										<?php } else { ?>
+											<li><a href="#" data-set-profile="1" data-pid="<?=$sm['photo']['id']; ?>">Put as profile photo</a></li>
+											<li><a href="#" data-block-photo="1" data-pid="<?=$sm['photo']['id']; ?>">Move to private photos</a></li>										
+										<?php } ?>										
+										<li><a href="#" data-delete-photo="1" data-pid="<?=$sm['photo']['id']; ?>">Delete photo</a></li>                                  
+									  </ul>
+										<div id="blockedPhoto<?=$sm['photo']['id']; ?>">
+										<?php if($sm['photo']['blocked']== 1){ ?>									
+										<a class="pt" href="#"><i class="material-icons">lock</i></a>										
+										<?php } ?>
+										</div>										
+									</div>  
+								</div>
+							<?php } else { ?>								
+								<div class='photo' src='<?=$photo; ?>' data-back-photo='1' data-src='<?=$photo; ?>'
+								data-id='<?=$sm['photo']['id']; ?>'
+								data-user='<?=$sm['photo']['user']; ?>'
+								data-photo='<?=$sm['photo']['photo']; ?>'
+								data-photo-like='<?=$sm['photo']['like']; ?>' 
+								data-likes='<?=$sm['photo']['likes']; ?>' 
+								data-desc='<?=$sm['photo']['desc']; ?>' 
+								data-comments='<?=$sm['photo']['comments']; ?>'>                          	
+								</div>
+							<?php } ?>

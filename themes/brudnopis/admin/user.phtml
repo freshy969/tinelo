@@ -1,0 +1,365 @@
+<?
+
+	if($_GET['id'] != ''){
+
+		$id = secureEncode($_GET['id']);
+
+		getUserInfo($id,8);
+
+	}	
+
+	?>
+
+  <script>
+    aurl = 'users';
+  </script>
+
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+
+    <!-- Main content -->
+
+    <section class="content">
+
+      <div class="row">
+
+        <div class="col-xs-12">
+
+          <div class="box">
+
+            <div class="box-header">
+
+              <h3 class="box-title">Edit profile
+                <?= $sm['edit']['name']; ?>
+              </h3>
+              <a href="index.php?page=admin&p=photos&f=2" class="box-title" style="padding: 0px 10px 0px 10px;">Pokaż komentarze</a>
+              <a href="index.php?page=admin&p=photos&f=2" class="box-title" style="padding: 0px 10px 0px 10px;">Pokaż wiadomości</a>
+              <a href="index.php?page=admin&p=photos&f=2" class="box-title" style="padding: 0px 10px 0px 10px;">Przypomnij hasło</a>
+              <a href="index.php?page=admin&p=photos&f=2" class="box-title" style="padding: 0px 10px 0px 10px;">Resetuj cookies</a>
+              <a href="index.php?page=admin&p=photos&f=2" class="box-title" style="padding: 0px 10px 0px 10px;">Dodaj do listy gorących osób</a>
+
+            </div>
+            <!-- /.box-header -->
+
+          </div>
+          <!-- /.box -->
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="col-md-6">
+
+          <!-- general form elements -->
+
+          <div class="box box-primary">
+
+            <!-- form start -->
+
+            <form role="form" action="#" id="site-user">
+
+              <input type="hidden" value="edit_u" name="action" />
+
+              <div class="box-body">
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">ID</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['id']; ?>" name="edit_id" readonly />
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">Name</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['name']; ?>" name="edit_name" />
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">Email</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['email']; ?>" name="edit_email" />
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">Age</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['age']; ?>" name="edit_age" />
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputPassword1">Gender</label>
+
+                  <select class="form-control" name="edit_gender">
+
+                    <? if($sm['edit']['gender'] == 1){ ?>
+
+                      <option value="1">Male</option>
+
+                      <option value="0">Female</option>
+
+                      <? } else { ?>
+
+                        <option value="0">Female</option>
+
+                        <option value="1">Male</option>
+
+                        <? } ?>
+
+                  </select>
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">Credits</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['credits']; ?>" name="edit_credits" />
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">City</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['city']; ?>" name="edit_city" />
+
+                </div>
+
+                <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                  <label for="exampleInputEmail1">Country</label>
+
+                  <input class="form-control" value="<?= $sm['edit']['country']; ?>" name="edit_country" />
+
+                </div>
+
+                <? if($sm['edit']['premium_check'] != 0){ ?>
+
+                  <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                    <label for="exampleInputEmail1">Premium (in days) [0 for remove premium]
+                      <?= $sm['edit']['first_name']; ?> is premium until
+                        <?= adminCheckDaysLeft($sm['edit']['premium_check']); ?>
+                    </label>
+
+                    <input class="form-control" value="" name="edit_premium" />
+
+                  </div>
+
+                  <? } else { ?>
+
+                    <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                      <label for="exampleInputEmail1">Premium (in days) - 0 for remove</label>
+
+                      <input class="form-control" value="" name="edit_premium" />
+
+                    </div>
+
+                    <? } ?>
+
+                      <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                        <label for="exampleInputEmail1">Verified - 1 = yes 0 = no</label>
+
+                        <input class="form-control" value="<?= $sm['edit']['verified']; ?>" name="edit_verified" />
+
+                      </div>
+
+                      <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                        <label for="exampleInputPassword1">Language</label>
+
+                        <select class="form-control" name="edit_lang">
+
+                          <option value="<?= $sm['edit']['lang']; ?>">
+                            <?= getCurrentLang($sm['edit']['lang']); ?>
+                          </option>
+
+                          <?= getSiteLangs($sm['config']['lang']); ?>
+
+                        </select>
+
+                      </div>
+
+                      <div style="width:50%;float:left;padding: 0 10px 0 10px;" class="form-group">
+
+                        <label for="exampleInputPassword1">Admin</label>
+
+                        <select class="form-control" name="edit_admin">
+
+                          <? if($sm['edit']['admin'] == 1){ ?>
+
+                            <option value="1">Yes</option>
+
+                            <option value="0">No</option>
+
+                            <? } else { ?>
+
+                              <option value="0">No</option>
+
+                              <option value="1">Yes</option>
+
+                              <? } ?>
+
+                        </select>
+
+                      </div>
+
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+
+                <button type="submit" class="btn btn-primary">Update
+                  <?= $sm['edit']['name']; ?>
+                </button>
+
+                <a href="javascript:;" data-banned-user="<?= $sm['edit']['id']; ?>" class="btn btn-danger pull-right">Banned
+                  <?= $sm['edit']['name']; ?>
+                </a>
+                <a href="javascript:;" data-delete-user="<?= $sm['edit']['id']; ?>" class="btn btn-danger pull-right">Delete
+                  <?= $sm['edit']['name']; ?>
+                </a>
+
+              </div>
+
+            </form>
+
+          </div>
+          <!-- /.box -->
+
+        </div>
+
+        <div class="col-md-6">
+
+          <!-- general form elements -->
+
+          <div class="box box-primary">
+
+            <div class="box-header">
+
+              <h3 class="box-title">Status</h3>
+
+            </div>
+            <!-- /.box-header -->
+
+            <div class="box-body">
+
+              <div class="col-xs-12 col-sm-6">
+
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="test1"/>
+                    <label for="test1">Ban 7 dni</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test2"/>
+                    <label for="test2">Ban 72h</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test3"/>
+                    <label for="test3">Ban 48h</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test4"/>
+                    <label for="test4">Ban 24h</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test4"/>
+                    <label for="test4">Ban</label>
+                  </p>
+                </form>
+
+              </div>
+
+              <div class="col-xs-12 col-sm-6">
+
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="test1" />
+                    <label for="test1">Zawieszony</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test2"/>
+                    <label for="test2">Zablokowany</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test3"/>
+                    <label for="test3">Do zatwierdzenia</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test4"/>
+                    <label for="test4">Zatwierdzony</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test4"/>
+                    <label for="test4">Nieuzupełniony</label>
+                  </p>
+                </form>
+
+              </div>
+
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+          <!-- /.box -->
+
+
+
+        </div>
+
+        <div class="col-md-6">
+
+          <!-- general form elements -->
+
+          <div class="box box-primary">
+
+            <div class="box-header">
+
+              <h3 class="box-title">Photos</h3>
+
+            </div>
+            <!-- /.box-header -->
+
+            <div class="box-body">
+
+              <ul class="users-list clearfix">
+
+                <?=  getPhotosUser($sm['edit']['id']); ?>
+
+              </ul>
+              <!-- /.users-list -->
+              <a href="javascript:;" data-delete-user="<?= $sm['edit']['id']; ?>" class="btn btn-primary">Edytuj zdjeice
+              </a>
+              <a href="javascript:;" data-delete-user="<?= $sm['edit']['id']; ?>" class="btn btn-danger pull-right">Zmien na glowne zdjecie</a>
+              <a href="javascript:;" data-delete-user="<?= $sm['edit']['id']; ?>" class="btn btn-danger pull-right">Usun zaznaczone zdjecie</a>
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+          <!-- /.box -->
+
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
